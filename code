@@ -1,0 +1,75 @@
+import random
+import json
+from datetime import datetime
+
+# Class for the Magic 8 Ball
+class Magic8Ball:
+    def __init__(self, user_name):
+        self.user = user_name
+        self.responses = [
+            "Yes, definitely.",
+            "Nope, not happening.",
+            "Ask again later.",
+            "Absolutely!",
+            "I wouldn’t count on it.",
+            "Maybe… in another reality.",
+            "Without a doubt.",
+            "My sources say no.",
+            "It’s looking good 👀",
+            "Uhh… far from yes."
+        ]
+        self.history_file = f"{self.user}_fortune_history.json"
+
+    def ask_question(self, question):
+        answer = random.choice(self.responses)
+        self.save_to_history(question, answer)
+        return answer
+
+    def save_to_history(self, question, answer):
+        entry = {
+            "timestamp": datetime.now().isoformat(),
+            "question": question,
+            "answer": answer
+        }
+        try:
+            with open(self.history_file, "r") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            data = []
+
+        data.append(entry)
+
+        with open(self.history_file, "w") as file:
+            json.dump(data, file, indent=4)
+
+    def show_history(self):
+        try:
+            with open(self.history_file, "r") as file:
+                data = json.load(file)
+                print("\n--- Your Past Fortunes ---")
+                for item in data:
+                    print(f"[{item['timestamp']}] Q: {item['question']} → A: {item['answer']}")
+        except FileNotFoundError:
+            print("No history yet. Ask your first question!")
+
+# Function to run the magic 8 ball program
+def run_magic_8():
+    print("🔮 Welcome to the Magic 8 Ball 🔮")
+    name = input("What's your name? ")
+    magic = Magic8Ball(name)
+
+    while True:
+        question = input("\nAsk a yes or no question (or type 'history' to view past fortunes, or 'quit' to exit): ")
+
+        if question.lower() == 'quit':
+            print("Thanks for playing! Come back to know more ✨ ")
+            break
+        elif question.lower() == 'history':
+            magic.show_history()
+        elif question.strip() == "":
+            print("Oops! Looks like you didn't input anything. Try again.")
+        else:
+            answer = magic.ask_question(question)
+            print("🧿 Your fortune: " + answer)
+
+run_magic_8()
