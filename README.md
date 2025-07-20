@@ -10,9 +10,9 @@ When you run the program, it asks for your name, then makes you  ask yes/no ques
 
 - **Python classes** 
 - **Functions** 
-- **`random` module** 
-- **`json` module** 
-- **`datetime`** 
+- **random module** 
+- **json module** 
+- **datetime** 
 
 # how to Use It
 
@@ -20,8 +20,8 @@ When you run the program, it asks for your name, then makes you  ask yes/no ques
 2. Enter your name.
 3. Ask any yes or no question.
 4. Get your “fortune” from the Magic 8 Ball.
-5. Type `history` to view past questions and predictions.
-6. Type `quit` when you're done.
+5. Type history to view past questions and predictions.
+6. Type quit when you're done.
 
 
 
